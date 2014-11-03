@@ -1,6 +1,8 @@
 #include "Scale.h"
 #include "Tones.h"
 
+#include <assert.h>
+
 /*
  * Data
  */
@@ -66,18 +68,30 @@ void Scale::build_scale() {
      and place them in the notes array. place the total amount of such notes in
      the notes_length array */
 
-  Serial.print("building scale\n");
+  //Serial.print("building scale\n");
   uint8_t Notes_position = 0;
   uint8_t notes_position = 0;
   while (Notes_position < NOTE_COUNT) {
-    Serial.print("" + String(Notes_position) + "," + String(notes_position) + "\n");;
-    this->notes[notes_position] = Scale::Notes[Notes_position];
+    //Serial.print("" + String(Notes_position) + "," + String(notes_position) + "\n");;
+    this->notes[notes_position] = Notes_position;
     
     notes_position++;
     Notes_position += this->intervals[notes_position % intervals_length];
   }
   this->notes_length = notes_position - 1;
-  Serial.print("Scale built\n");
+  //Serial.print("Scale built\n");
+}
+
+uint8_t Scale::length() {
+  return this->notes_length;
+}
+
+uint32_t Scale::note_frequency(uint8_t position) {
+  return Scale::Notes[this->notes[position]];
+}
+
+char * Scale::note_name(uint8_t position) {
+  return Scale::NoteNames[this->notes[position]];
 }
 
 void Scale::print_debug() {
@@ -97,51 +111,4 @@ void Scale::print_debug() {
     "] notes_length:" + String(this->notes_length) + "\t" +
     "\n");
 }
-    
-
-void Scale::getNote(uint8_t positionInScale, int &frequency, char* &name) { 
-//  uint8_t count = this->notes_length;
-//  uint8_t positionInArray = positionInScale;
-//  uint8_t i = 0;
-//  
-//  while (count < positionInScale) {
-//    i = i % this->notes_length;
-//    
-//    if (positionInArray + this->intervals[i] >= Scale::Notes_length) {
-//      Serial.print("omg ovarflow"); 
-//      break;
-//    }
-//    
-//    positionInArray += this->intervals[i];
-//    Serial.print("+ " + String(this->intervals[i]));
-//    i++;
-//    count++;
-//  }
-//  Serial.print("> GOT > " + String(positionInArray) + "\n");
-//  frequency = this->Notes[positionInArray];
-//  name = this->NoteNames[positionInArray];
-}
-
-uint8_t Scale::getScaleLength() {
-//  uint8_t count = 0;
-//  uint8_t position = this->root_position;
-//  uint8_t i = 0;
-//  while (position < Scale::Notes_length) {
-//
-//    if (position + this->intervals[i] >= Scale::Notes_length) {
-//      Serial.print("omg ovarflow"); 
-//      break;
-//    }
-//    
-//    position += this->intervals[i];
-//    
-//    Serial.print(String(position) + "-> " + String(this->intervals[i]) + "\n");
-//    count++;
-//    i = (++i) % this->notes_length;
-//  }
-//  
-//  return count;
-}
-
-
 

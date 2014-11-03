@@ -39,9 +39,9 @@ class Scale {
      how many intervals is the scale composed of */
   uint8_t intervals_length;
   
-  /* note composition of the scale */
+  /* note composition of the scale - positions of the Notes array*/
   /* max length of the scale is the length of the default chromatic scale */ 
-  uint32_t notes[NOTE_COUNT];
+  uint8_t notes[NOTE_COUNT];
   
   /* how many notes in the notes[] array of the scale */
   uint8_t notes_length;
@@ -49,16 +49,18 @@ class Scale {
   /* builds the note composition array for a scale object */
   void build_scale();
   
-  /* prints to Serial debug information about this scale */
-    
   public:
   Scale();
   Scale(uint8_t root_position, uint8_t intervals[], uint8_t length);
 
-  void getNote(uint8_t positionInScale, int &frequency, char* &name);
-  uint8_t getScaleLength();
-  
+  uint8_t length();
+  uint32_t note_frequency(uint8_t position);
+  char* note_name(uint8_t position);
+
+  /* prints to Serial debug information about this scale */
   void print_debug();
+  
+
 };
   
 
