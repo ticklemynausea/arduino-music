@@ -1,5 +1,5 @@
-#ifndef _music_h_
-#define _music_h_
+#ifndef _scale_h_
+#define _scale_h_
 
 #define NOTENAME_LENGTH 4
 #define CHROMATIC_LENGTH 11 
